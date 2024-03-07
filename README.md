@@ -55,6 +55,12 @@ installed (https://rustup.rs), then:
 $ cargo install loopers
 ```
 
+If cargo install fails, you can try:
+```bash
+$ cargo update
+$ cargo install loopers
+```
+
 Then start it with the command
 
 ```bash
