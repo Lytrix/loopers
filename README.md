@@ -38,14 +38,31 @@ size, and loop lengths are limited only by available memory.
 
 ## Getting started
 
-### Linux
+### Linux on Raspberry Pi (3 Model B was tested)
 
-To build loopers, you will need jack, sdl2 and python2 to install an older version of rust-skia.
+To build loopers, you will need jack, sdl2 and python2 to install an older version of rust-skia, 0.69 to not fail on font creation.
 
 For Ubuntu/Debian these can be installed with:
 
 ```bash
 $ sudo apt install jackd2 libjack-jackd2-dev libgl1-mesa-dev libsdl2-dev python2
+```
+
+To be able to build skia-safe for raspberry pi, ninja needs to be installed:
+```bash
+$ sudo apt-get install python2 re2c ninja-build clang libfontconfig-dev
+$ export SKIA_NINJA_COMMAND=/usr/bin/ninja
+```
+ 
+Test with:
+ ```bash
+$ ninja —version 
+$ which ninja```
+
+
+And set this as env to ensure ninja can be found in python:
+```bash
+$ export SKIA_NINJA_COMMAND=/usr/bin/ninja
 ```
 
 Now you're ready to install loopers itself. First get a rust toolchain
