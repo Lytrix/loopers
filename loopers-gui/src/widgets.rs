@@ -1,13 +1,25 @@
 use crate::{AppData, Controller, GuiEvent, KeyEventKey, KeyEventType, MouseEventType};
 use loopers_common::clamp;
-use loopers_gui::default_typeface;
 use sdl2::mouse::MouseButton;
 use skia_safe::paint::Style;
 use skia_safe::{
-    Canvas, Color, Contains, Font, Paint, Path, Point, Rect, Size, TextBlob, Typeface,
+    Canvas, Color, Contains, Font, Paint, Path, Point, Rect, Size, TextBlob, Typeface
 };
 use std::f32::consts::PI;
 use std::time::UNIX_EPOCH;
+
+pub fn default_typeface() -> Typeface {
+    DEFAULT_TYPEFACE
+        .get_or_init(|| {
+            let font_mgr = FontMgr::new();
+            font_mgr
+                .legacy_make_typeface(None, FontStyle::default())
+                .unwrap()
+        })
+        .clone()
+}
+
+static DEFAULT_TYPEFACE: OnceCell<Typeface> = OnceCell::new();
 
 pub fn draw_circle_indicator(canvas: &Canvas, color: Color, p: f32, x: f32, y: f32, r: f32) {
     let mut paint = Paint::default();

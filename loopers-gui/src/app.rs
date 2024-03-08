@@ -25,10 +25,21 @@ use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::Arc;
 use std::time::{Duration, Instant};
 
-use skia::default_typeface;
-
 const LOOP_ICON: &[u8] = include_bytes!("../resources/icons/loop.png");
 const METRONOME_ICON: &[u8] = include_bytes!("../resources/icons/metronome.png");
+
+pub fn default_typeface() -> Typeface {
+    DEFAULT_TYPEFACE
+        .get_or_init(|| {
+            let font_mgr = FontMgr::new();
+            font_mgr
+                .legacy_make_typeface(None, FontStyle::default())
+                .unwrap()
+        })
+        .clone()
+}
+
+static DEFAULT_TYPEFACE: OnceCell<Typeface> = OnceCell::new();
 
 fn color_for_mode(mode: LooperMode) -> Color {
     match mode {
