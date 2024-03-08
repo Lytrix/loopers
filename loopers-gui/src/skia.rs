@@ -266,7 +266,7 @@ pub fn skia_main(mut gui: Gui) {
 
         let text = TextBlob::new(
             &format!("{:.1} fps", fps),
-            &Font::default_typeface(), 12.0),
+             &Font::from_typeface(default_typeface(), 12.0),
         )
         .unwrap();
 

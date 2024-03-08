@@ -25,6 +25,8 @@ use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::Arc;
 use std::time::{Duration, Instant};
 
+use loopers_gui::skia::default_typeface;
+
 const LOOP_ICON: &[u8] = include_bytes!("../resources/icons/loop.png");
 const METRONOME_ICON: &[u8] = include_bytes!("../resources/icons/metronome.png");
 
@@ -555,7 +557,7 @@ impl TempoView {
         controller: &mut Controller,
         last_event: Option<GuiEvent>,
     ) -> Size {
-        let font = Font::new(Typeface::default(), 20.0);
+        let font = Font::from_typeface(default_typeface(), 20.0);
         let text = &format!(
             "{} bpm",
             data.engine_state.metric_structure.tempo.bpm() as u32
@@ -721,7 +723,7 @@ impl MetronomeView {
 
         let mut paint = Paint::default();
         paint.set_anti_alias(true);
-        let font = Font::new(Typeface::default(), 20.0);
+        let font = Font::from_typeface(default_typeface(), 20.0);
 
         let beat_color = if beat_of_measure == 0 {
             color_for_mode(LooperMode::Playing)
@@ -774,7 +776,7 @@ impl MetronomeView {
             text_paint.set_color(Color::WHITE);
             let lower = data.engine_state.metric_structure.time_signature.lower;
 
-            let font = Font::new(Typeface::default(), 12.0);
+            let font = Font::from_typeface(default_typeface(), 12.0);
 
             let x = x + radius * 2.0 + 10.0;
             canvas.draw_str(&upper.to_string(), (x, 10.0), &font, &text_paint);
@@ -946,7 +948,7 @@ impl TimeView {
         ms -= (minutes * 60) as f64;
         let seconds = ms as u64;
 
-        let font = Font::new(Typeface::default(), 20.0);
+        let font = Font::from_typeface(default_typeface(), 20.0);
         let mut text_paint = Paint::default();
         text_paint.set_color(Color::WHITE);
         text_paint.set_anti_alias(true);
@@ -1587,7 +1589,7 @@ impl LogMessageView {
     fn draw(canvas: &Canvas, data: &AppData) -> Size {
         let msg = data.messages.cur.as_ref().map(|(_, l)| l.as_str());
         if let Some(msg) = msg.as_ref() {
-            let font = Font::new(Typeface::default(), Some(14.0));
+            let font = Font::from_typeface(default_typeface(), Some(14.0));
             let mut paint = Paint::default();
             paint.set_anti_alias(true);
             paint.set_color(Color::WHITE);
@@ -1851,7 +1853,7 @@ impl LooperView {
         if looper.speed != LooperSpeed::One {
             let mut paint = Paint::default();
 
-            let font = Font::new(Typeface::default(), 21.0);
+            let font = Font::from_typeface(default_typeface(), 21.0);
             let (text, x) = match looper.speed {
                 LooperSpeed::Half => ("½x", 35.0),
                 LooperSpeed::Double => ("2x", 40.0),
@@ -1948,7 +1950,7 @@ impl LooperView {
             }
             paint.set_anti_alias(true);
 
-            let font = Font::new(Typeface::default(), 12.0);
+            let font = Font::from_typeface(default_typeface(), 12.0);
             let x = if looper.id > 9 { -8.0 } else { -4.0 };
             canvas.draw_str(&format!("{}", looper.id), Point::new(x, 4.0), &font, &paint);
         }
@@ -2547,7 +2549,7 @@ impl WaveformView {
                 canvas.draw_rect(rect, &paint);
 
                 if let Some(text) = text {
-                    let font = Font::new(Typeface::default(), 24.0);
+                    let font = Font::from_typeface(default_typeface(), 24.0);
                     let mut text_paint = Paint::default();
                     text_paint.set_color(Color::BLACK);
                     text_paint.set_anti_alias(true);
