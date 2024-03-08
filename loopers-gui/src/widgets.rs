@@ -1,5 +1,6 @@
 use crate::{AppData, Controller, GuiEvent, KeyEventKey, KeyEventType, MouseEventType};
 use loopers_common::clamp;
+use loopers_gui::default_typeface;
 use sdl2::mouse::MouseButton;
 use skia_safe::paint::Style;
 use skia_safe::{
@@ -92,7 +93,7 @@ pub struct ControlButton {
 
 impl ControlButton {
     pub fn new(text: &str, color: Color, width: Option<f32>, height: f32) -> Self {
-        let font = Font::new(Typeface::default(), 16.0);
+        let font =  &Font::from_typeface(default_typeface(), 16.0);
 
         let text_size = font.measure_str(text, None).1.size();
 
