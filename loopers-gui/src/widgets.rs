@@ -3,7 +3,7 @@ use loopers_common::clamp;
 use sdl2::mouse::MouseButton;
 use skia_safe::paint::Style;
 use skia_safe::{
-    Canvas, Color, Contains, Font, Paint, Path, Point, Rect, Size, TextBlob, Typeface
+    Canvas, Color, Contains, Font, Paint, Path, Point, Rect, Size, TextBlob, FontMgr, FontStyle, Typeface
 };
 use std::f32::consts::PI;
 use std::time::UNIX_EPOCH;

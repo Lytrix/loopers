@@ -16,7 +16,7 @@ use sdl2::mouse::MouseButton;
 use skia_safe::gpu::SurfaceOrigin;
 use skia_safe::paint::Style;
 use skia_safe::path::Path;
-use skia_safe::Rect;
+use skia_safe::{Rect, FontMgr, FontStyle};
 use skia_safe::*;
 use std::collections::{BTreeMap, HashMap};
 use std::path::PathBuf;
