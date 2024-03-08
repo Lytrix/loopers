@@ -1,7 +1,7 @@
 use skia_safe::gpu::gl::FramebufferInfo;
 use skia_safe::gpu::{self, DirectContext, SurfaceOrigin};
 use skia_safe::{
-    Color, ColorType, Font, Paint, PictureRecorder, Point, Rect, Size, Surface, TextBlob, Typeface,
+    Color, ColorType, Font, Paint, PictureRecorder, Point, Rect, Size, Surface, TextBlob, FontMgr, FontStyle, Typeface,
 };
 use std::convert::TryInto;
 
@@ -18,6 +18,9 @@ use std::fs::File;
 use std::io::Write;
 use std::time::Instant;
 
+// default Font
+use once_cell::sync::OnceCell;
+
 const INITIAL_WIDTH: i32 = 800;
 const INITIAL_HEIGHT: i32 = 600;
 
@@ -25,6 +28,19 @@ lazy_static! {
     pub static ref BACKGROUND_COLOR: Color = Color::from_rgb(29, 30, 39);
     // pub static ref BACKGROUND_COLOR: Color = Color::GREEN;
 }
+
+pub fn default_typeface() -> Typeface {
+    DEFAULT_TYPEFACE
+        .get_or_init(|| {
+            let font_mgr = FontMgr::new();
+            font_mgr
+                .legacy_make_typeface(None, FontStyle::default())
+                .unwrap()
+        })
+        .clone()
+}
+
+static DEFAULT_TYPEFACE: OnceCell<Typeface> = OnceCell::new();
 
 fn create_surface(
     gr_context: &mut DirectContext,
@@ -250,7 +266,7 @@ pub fn skia_main(mut gui: Gui) {
 
         let text = TextBlob::new(
             &format!("{:.1} fps", fps),
-            &Font::new(Typeface::default(), 12.0),
+            &Font::default_typeface(), 12.0),
         )
         .unwrap();
 
