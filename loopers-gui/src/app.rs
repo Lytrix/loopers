@@ -25,6 +25,9 @@ use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::Arc;
 use std::time::{Duration, Instant};
 
+// default Font
+use once_cell::sync::OnceCell;
+
 const LOOP_ICON: &[u8] = include_bytes!("../resources/icons/loop.png");
 const METRONOME_ICON: &[u8] = include_bytes!("../resources/icons/metronome.png");
 

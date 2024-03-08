@@ -8,6 +8,9 @@ use skia_safe::{
 use std::f32::consts::PI;
 use std::time::UNIX_EPOCH;
 
+// default Font
+use once_cell::sync::OnceCell;
+
 pub fn default_typeface() -> Typeface {
     DEFAULT_TYPEFACE
         .get_or_init(|| {
