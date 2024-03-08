@@ -17,6 +17,9 @@ dirs = "5.0"
 
 skia-safe = {version = "0.71", features = ["gl", "x11"]}
 
+# default Font
+once_cell = { version = "1.19.0" }
+
 sdl2 = "0.36"
 
 tinyfiledialogs = "3.9.1"
